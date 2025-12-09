@@ -1,5 +1,6 @@
 # Project-PCSC
 Adam Mesbahi Amrani -- 387382
+
 Sebbar Aziz -- 
 
 This repo implements a software for sound and image processing. It allows the user to compute the dft, perform filtering and perform convolutions to denoise or exctract the contours. 
