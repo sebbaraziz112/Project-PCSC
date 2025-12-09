@@ -41,7 +41,7 @@ int main(int argc, char* argv[]){
     
 
     std::vector<Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic>> bfDftData = CastMatrix<std::complex<double>, double>(bandFilteredDFT);
-    std::vector<Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic>> dftData = CastMatrix<std::complex<double>, double>(imageDataDFT);
+    std::vector<Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic>> dftData = CastMatrix<std::complex<double>, double>(shiftedDataDFT);
     displayPreparation(255.0, bfDftData);
     displayPreparation(255.0, dftData);
     std::vector<Eigen::Matrix<uint8_t, Eigen::Dynamic, Eigen::Dynamic>> bfDftFinalData = CastMatrix<double, uint8_t>(bfDftData);
