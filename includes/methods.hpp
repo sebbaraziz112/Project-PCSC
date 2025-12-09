@@ -379,10 +379,23 @@ public:
     Eigen::Matrix<std::complex<double>, Eigen::Dynamic, Eigen::Dynamic> getBandMatrix(int nRows, int nCols) const;
 
     template <typename T>
-    std::vector<Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic>> shiftCenter(std::vector<Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic>>& matrices) const;
+    std::vector<Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic>> shift(std::vector<Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic>>& matrices, int rowPad, int colPad) const;
 
     template <typename T>
-    std::vector<Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic>> shiftInverse(std::vector<Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic>>& matrices) const; 
+    std::vector<Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic>> shiftCenter(std::vector<Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic>>& matrices) const{
+        int nRows = matrices[0].rows();
+        int nCols = matrices[0].cols();
+        return this->shift<T>(matrices, nRows / 2, nCols / 2);
+    }
+
+    template <typename T>
+    std::vector<Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic>> shiftInverse(std::vector<Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic>>& matrices) const{
+        int nRows = matrices[0].rows();
+        int nCols = matrices[0].cols();
+        int rowPad = - nRows / 2;
+        int colPad = - nCols / 2;
+        return this->shift<T>(matrices, rowPad, colPad);
+    }
     
     void setLowerFractionX(double lowerFraction){
         lowerFractionX_ = lowerFraction;
@@ -549,10 +562,10 @@ Eigen::Matrix<std::complex<double>, Eigen::Dynamic, Eigen::Dynamic> Convolution<
 // BandFiltering
 
 template <typename T>
-std::vector<Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic>> BandFiltering::shiftCenter(std::vector<Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic>>& matrices) const {
+std::vector<Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic>> BandFiltering::shift(std::vector<Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic>>& matrices, int rowPad, int colPad) const {
     const int nChann = matrices.size();
-    std::vector<Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic>> centeredMatrices;
-    centeredMatrices.reserve(nChann);
+    std::vector<Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic>> shiftedMatrices;
+    shiftedMatrices.reserve(nChann);
 
     for (int chann = 0; chann < nChann; chann++) {
         const auto& mat = matrices[chann];
@@ -561,44 +574,24 @@ std::vector<Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic>> BandFiltering::shi
 
         Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic> newMatrix(nRows, nCols);
 
-        int midRow = nRows / 2;
-        int midCol = nCols / 2;
-        newMatrix.topLeftCorner(midRow, midCol) = mat.bottomRightCorner(nRows - midRow, nCols - midCol);
-        newMatrix.topRightCorner(midRow, nCols - midCol) = mat.bottomLeftCorner(nRows - midRow, midCol);
-        newMatrix.bottomLeftCorner(nRows - midRow, midCol) = mat.topRightCorner(midRow, nCols - midCol);
-        newMatrix.bottomRightCorner(nRows - midRow, nCols - midCol) = mat.topLeftCorner(midRow, midCol);
+        for (int i = 0; i < nRows; i++) {
+            for (int j = 0; j < nCols; j++) {
+                int newRow = (i + rowPad) % nRows;
+                int newCol = (j + colPad) % nCols;
 
-        centeredMatrices.push_back(newMatrix);
+                if (newRow < 0) newRow += nRows;
+                if (newCol < 0) newCol += nCols;
+
+                newMatrix(newRow, newCol) = mat(i, j);
+            }
+        }
+
+        
+
+        shiftedMatrices.push_back(newMatrix);
     }
 
-    return centeredMatrices;
-}
-
-template <typename T>
-std::vector<Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic>> BandFiltering::shiftInverse(std::vector<Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic>>& matrices) const {
-    const int nChann = matrices.size();
-    std::vector<Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic>> invMatrices;
-    invMatrices.reserve(nChann);
-
-    for (int chann = 0; chann < nChann; chann++) {
-        const auto& mat = matrices[chann];
-        const int nRows = mat.rows();
-        const int nCols = mat.cols();
-
-        Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic> newMatrix(nRows, nCols);
-
-        int midRow = nRows / 2;
-        int midCol = nCols / 2;
-
-        newMatrix.topLeftCorner(midRow, midCol) = mat.bottomRightCorner(nRows - midRow, nCols - midCol);
-        newMatrix.topRightCorner(midRow, nCols - midCol) = mat.bottomLeftCorner(nRows - midRow, midCol);
-        newMatrix.bottomLeftCorner(nRows - midRow, midCol) = mat.topRightCorner(midRow, nCols - midCol);
-        newMatrix.bottomRightCorner(nRows - midRow, nCols - midCol) = mat.topLeftCorner(midRow, midCol);
-
-        invMatrices.push_back(newMatrix);
-    }
-
-    return invMatrices;
+    return shiftedMatrices;
 }
 
 #endif

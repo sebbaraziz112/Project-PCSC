@@ -331,7 +331,6 @@ TEST(BLUESTEIN_TEST, BACKWARD_PASS_2D){
 
 }
 
-
 TEST(BLUESTEIN_TEST, IDENTITY_1D){
 
     std::shared_ptr<BlueSteinMethod> myBlueStein = std::make_shared<BlueSteinMethod>();
@@ -370,6 +369,54 @@ TEST(BLUESTEIN_TEST, IDENTITY_2D){
 
     Eigen::Matrix<uint8_t, Eigen::Dynamic, Eigen::Dynamic> test2_2d;
     test2_2d.resize(10, 10);
+    randomInit<uint8_t>(test2_2d);
+    tests_2d.push_back(test2_2d);
+
+    std::vector<Eigen::Matrix<std::complex<double>, Eigen::Dynamic, Eigen::Dynamic>> resultBluestein_2d = myBlueStein->computeMethod<uint8_t, std::complex<double>>(tests_2d);
+    std::vector<Eigen::Matrix<uint8_t, Eigen::Dynamic, Eigen::Dynamic>> resultInvBluestein_2d = myInvBlueStein->computeMethod<std::complex<double>, uint8_t>(resultBluestein_2d);
+
+    EXPECT_EQ(resultInvBluestein_2d[0], tests_2d[0]);
+    EXPECT_EQ(resultInvBluestein_2d[1], tests_2d[1]);
+}
+
+TEST(BLUESTEIN_TEST, IDENTITY_1D_BIG){
+
+    std::shared_ptr<BlueSteinMethod> myBlueStein = std::make_shared<BlueSteinMethod>();
+    std::shared_ptr<InvBlueSteinMethod> myInvBlueStein = std::make_shared<InvBlueSteinMethod>();
+
+    std::vector<Eigen::Matrix<uint16_t, Eigen::Dynamic, Eigen::Dynamic>> tests_1d;
+
+    Eigen::Matrix<uint16_t, Eigen::Dynamic, Eigen::Dynamic> test1_1d;
+    test1_1d.resize(1, 1000);
+    randomInit<uint16_t>(test1_1d);
+    tests_1d.push_back(test1_1d);
+
+    Eigen::Matrix<uint16_t, Eigen::Dynamic, Eigen::Dynamic> test2_1d;
+    test2_1d.resize(1, 1000);
+    randomInit<uint16_t>(test2_1d);
+    tests_1d.push_back(test2_1d);
+
+    std::vector<Eigen::Matrix<std::complex<double>, Eigen::Dynamic, Eigen::Dynamic>> resultBluestein_1d = myBlueStein->computeMethod<uint16_t, std::complex<double>>(tests_1d);
+    std::vector<Eigen::Matrix<uint16_t, Eigen::Dynamic, Eigen::Dynamic>> resultInvBluestein_1d = myInvBlueStein->computeMethod<std::complex<double>, uint16_t>(resultBluestein_1d);
+
+
+    EXPECT_EQ(resultInvBluestein_1d[0], tests_1d[0]);
+    EXPECT_EQ(resultInvBluestein_1d[1], tests_1d[1]);
+}
+
+TEST(BLUESTEIN_TEST, IDENTITY_2D_BIG){
+    std::shared_ptr<BlueSteinMethod> myBlueStein = std::make_shared<BlueSteinMethod>();
+    std::shared_ptr<InvBlueSteinMethod> myInvBlueStein = std::make_shared<InvBlueSteinMethod>();
+
+    std::vector<Eigen::Matrix<uint8_t, Eigen::Dynamic, Eigen::Dynamic>> tests_2d;
+
+    Eigen::Matrix<uint8_t, Eigen::Dynamic, Eigen::Dynamic> test1_2d;
+    test1_2d.resize(100, 100);
+    randomInit<uint8_t>(test1_2d);
+    tests_2d.push_back(test1_2d);
+
+    Eigen::Matrix<uint8_t, Eigen::Dynamic, Eigen::Dynamic> test2_2d;
+    test2_2d.resize(100, 100);
     randomInit<uint8_t>(test2_2d);
     tests_2d.push_back(test2_2d);
 

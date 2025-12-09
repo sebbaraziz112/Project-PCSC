@@ -13,6 +13,7 @@ int main(int argc, char* argv[]){
     std::shared_ptr<ImageReader> myImageReader = std::make_shared<ImageReader>(true, true);
     std::shared_ptr<ImageWriter> myImageWriter = std::make_shared<ImageWriter>();
     std::shared_ptr<BlueSteinMethod> myBS = std::make_shared<BlueSteinMethod>();
+    std::shared_ptr<BandFiltering> myBandFilter = std::make_shared<BandFiltering>();
 
     std::string output_filename = myImageReader->getPreExtension(input_filename) + "_dft.bmp";
 
@@ -21,7 +22,7 @@ int main(int argc, char* argv[]){
     std::vector<Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic>> imageDataDFT = myBS->computeMethod<uint8_t, double>(imageData);
     displayPreparation(255.0, imageDataDFT);
     std::vector<Eigen::Matrix<uint8_t, Eigen::Dynamic, Eigen::Dynamic>> finalData = CastMatrix<double, uint8_t>(imageDataDFT);
-    std::vector<Eigen::Matrix<uint8_t, Eigen::Dynamic, Eigen::Dynamic>> shiftedFinalData = shiftCenter<uint8_t>(finalData);
+    std::vector<Eigen::Matrix<uint8_t, Eigen::Dynamic, Eigen::Dynamic>> shiftedFinalData = myBandFilter->shiftCenter<uint8_t>(finalData);
 
     BMPHeader myHeaderImage = myImageReader->getFinalHeader(input_filename);
     myImageWriter->write(shiftedFinalData, output_filename, myHeaderImage);

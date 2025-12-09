@@ -36,7 +36,7 @@ target_include_directories(core PUBLIC ${eigen_SOURCE_DIR})
 add_executable(imsonpro main.cpp)
 target_link_libraries(imsonpro PRIVATE core)
 
-add_executable(unit_tests tests/data_rw_tests.cpp tests/dft_tests.cpp)
+add_executable(unit_tests tests/data_rw_tests.cpp tests/dft_tests.cpp tests/shift_tests.cpp)
 target_link_libraries(unit_tests PRIVATE core gtest_main)
 
 # tools
@@ -46,6 +46,9 @@ target_link_libraries(imsonpro-dft-image PRIVATE core)
 
 add_executable(imsonpro-convolve-image tools/convolve-image.cpp)
 target_link_libraries(imsonpro-convolve-image PRIVATE core)
+
+add_executable(imsonpro-bandfilter-image tools/bandfilter-image.cpp)
+target_link_libraries(imsonpro-bandfilter-image PRIVATE core)
 
 
 include(GoogleTest)

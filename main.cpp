@@ -20,9 +20,9 @@ int main(int argc, char *argv[]){
         std::cout << "                      -Lap4" << std::endl;
         std::cout << "                      -Lap8" << std::endl;
         std::cout << "                      -LapGauss" << std::endl;
-        std::cout << "      - bandfilter-image [filename] [prct bottom] [prct ceil]" << std::endl;
+        std::cout << "      - bandfilter-image [filename] [prct bottom] [prct top]" << std::endl;
         std::cout << "      - dft-sound [fileame]" << std::endl;
-        std::cout << "      - bandfilter-sound [filename] [prct bottom] [prct ceil]" << std::endl;
+        std::cout << "      - bandfilter-sound [filename] [prct bottom] [prct top]" << std::endl;
         return 0;
     }
 

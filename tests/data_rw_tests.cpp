@@ -40,8 +40,6 @@ TEST(DATA_READ_WRITE, FULL_PIPELINE_IMAGE){
 
     EXPECT_EQ(compareFiles(new_file_image, generated_file_image), 1);
 
-    
-
 }
 
 

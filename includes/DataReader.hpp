@@ -149,8 +149,6 @@ void AbstractReader<T>::eraseFile(std::string file_path) const{
     std::system(cmd.c_str());
 }
 
-
-
 template <typename T>
 std::string AbstractReader<T>::getPreExtension(std::string file_path) const {
     size_t pos = file_path.find_last_of('.');
