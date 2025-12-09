@@ -35,29 +35,9 @@ chmod +x install_mac.bash
 ./build.sh
 ```
 
-
 ### Linux
 
-1. Check if `mpg123` is installed on your machine.
-```
-mpg123 --version
-```
-If not, run:  
-```bash
-sudo apt update
-sudo apt install mpg123
-```
-
-2. Check if ImageMagick is installed. If not, run:
-```
-magick --version
-```
-```bash
-sudo apt update
-sudo apt install imagemagick
-```
-
-3. Then follow these steps:
+Follow these steps:
 
 ```bash
 git clone https://github.com/sebbaraziz112/Project-PCSC.git
@@ -73,4 +53,4 @@ chmod +x install_linux.bash
 
 ### Windows
 
-For now, the project is not availabe on windows
+For now, the project is not availabe on windows machines
