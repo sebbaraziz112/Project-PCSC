@@ -101,7 +101,9 @@ imsonpro dft-image bird.png
 ```
 
 The result is the following: 
+
 ![bird.png](ressources/ImageFolder/bird.png)
+
 ![DFT of bird.png](ressources/ImageFolder/bird_dft.bmp)
 
 The execution can take some time depending on your machine
