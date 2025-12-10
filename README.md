@@ -100,6 +100,8 @@ cd Projet-PCSC/ressources/ImageFolder
 imsonpro dft-image bird.png
 ```
 
+The dft file is saved as bird_dft.bmp
+
 The result is the following: 
 
 ![bird.png](ressources/ImageFolder/bird.png)
@@ -114,7 +116,23 @@ The dft-image command uses different kind of kernels to perform convolutions on 
 - SobelY: it highlights contouring in the Y axis of the image
 - Blurr: it uses a 5x5 gaussian kernel to blurr the image
 - LapClass: uses a Classical Laplacian kernel
-- Lap4 
+- Lap4: 4-neighbour laplacian
+- Lap8: 8-neighbour laplacian
+- LapGauss: Gaussian laplacian
+
+Example of usage: 
+```bash
+cd Projet-PCSC/ressources/ImageFolder
+imsonpro convolve-image Blurr BETTERMAN_2.bmp
+```
+
+The new file is saved as: BETTERMAN_2_Blurr.bmp
+
+The result is the following: 
+
+![BETTERMAN_2.bmp](ressources/ImageFolder/BETTERMAN_2.png)
+
+![BETTERMAN_2_Blurr.png](ressources/ImageFolder/BETTERMAN_2_Blurr.bmp)
 
 
 
