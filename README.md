@@ -130,7 +130,7 @@ The new file is saved as: BETTERMAN_2_Blurr.bmp
 
 The result is the following: 
 
-![BETTERMAN_2.bmp](ressources/ImageFolder/BETTERMAN_2.png)
+![BETTERMAN_2.bmp](ressources/ImageFolder/BETTERMAN_2.bmp)
 
 ![BETTERMAN_2_Blurr.png](ressources/ImageFolder/BETTERMAN_2_Blurr.bmp)
 
