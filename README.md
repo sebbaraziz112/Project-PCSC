@@ -55,3 +55,64 @@ chmod +x install_linux.bash
 ### Windows
 
 For now, the project is not availabe on windows machines
+
+---
+
+## Fonctionalities
+
+Open the terminal and type
+
+```bash
+imsonpro
+```
+You will get the following result
+```bash
+Usage: imsonpro <command> [args]
+The availabe commands are: 
+      - dft-image [filename]
+      - convolve-image [convolve type] [filename]
+            convolve: -SobelX (Horizontal Contouring)
+                      -SobelY (Vertical Contouring)
+                      -Blurr (5-Neighbours Gaussian blurring)
+                      -LapClass (Classic Laplacian)
+                      -Lap4 (4-neighbor Laplacian)
+                      -Lap8 (8-neighbor Laplacian)
+                      -LapGauss (Gaussian Laplacian)
+      - hist-image [filename]
+      - bandfilter-image [filename] [prct bottom] [prct top]
+      - dft-sound [fileame]
+      - bandfilter-sound [filename] [prct bottom] [prct top]
+      - hist-sound [filename]
+```
+
+The commands for the images and the sounds are different. 
+
+### Image commands
+
+This software supports .png and .bmp image files. 
+
+#### dft-image 
+The dft-image command uses the Bluestein algorithm (base on Radix-2 algorithm) to compute the DFT of an image. This DFT is then stored as an image too in the .bmp format. 
+
+Example of usage: 
+```bash
+cd Projet-PCSC/ressources/ImageFolder
+imsonpro dft-image bird.png
+```
+
+The result is the following: 
+![bird.png](ressources/ImageFolder/bird.png)
+![DFT of bird.png](ressources/ImageFolder/bird_dft.bmp)
+
+The execution can take some time depending on your machine
+
+#### convolve-image
+The dft-image command uses different kind of kernels to perform convolutions on an image. In total, there are seven kernels available: 
+- SobelX: it highlights contouring in the X axis of the image
+- SobelY: it highlights contouring in the Y axis of the image
+- Blurr: it uses a 5x5 gaussian kernel to blurr the image
+- LapClass: uses a Classical Laplacian kernel
+- Lap4 
+
+
+
