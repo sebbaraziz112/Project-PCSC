@@ -1,10 +1,12 @@
 #ifndef METHODS
 #define METHODS
 
+
 #include <iostream>
 #include <Eigen/Dense>
 #include <complex>
 #include <cassert>
+#include <cmath>
 
 
 

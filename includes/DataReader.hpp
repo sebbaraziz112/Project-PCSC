@@ -2,6 +2,8 @@
 #ifndef DATAREADER
 #define DATAREADER 
 
+
+#include <cmath>
 #include <iostream>
 #include <Eigen/Dense>
 #include <string>

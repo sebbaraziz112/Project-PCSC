@@ -10,9 +10,9 @@ TEST(DATA_READ_WRITE, FULL_PIPELINE_SOUND){
     std::shared_ptr<SoundReader> mySoundReader = std::make_shared<SoundReader>(true, true);
     std::shared_ptr<SoundWriter> mySoundWriter = std::make_shared<SoundWriter>();
 
-    std::string original_file_sound = "../ressources/TrackFolder/track1.mp3";
-    std::string new_file_sound = "../ressources/TrackFolder/new_track1.wav";
-    std::string generated_file_sound = "../ressources/TrackFolder/track1.wav";
+    std::string original_file_sound = "../ressources/TrackFolder/noisy1.wav";
+    std::string new_file_sound = "../ressources/TrackFolder/new_noisy1.wav";
+    std::string generated_file_sound = "../ressources/TrackFolder/noisy1.wav";
 
 
     std::vector<Eigen::Matrix<uint16_t, Eigen::Dynamic, Eigen::Dynamic>> soundData = mySoundReader->getData(original_file_sound);

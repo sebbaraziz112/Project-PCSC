@@ -4,6 +4,7 @@
 #include <vector>
 #include <Eigen/Dense>
 #include <random>
+#include <cmath>
 
 
 bool compareFiles(std::string file1_name, std::string file2_name);

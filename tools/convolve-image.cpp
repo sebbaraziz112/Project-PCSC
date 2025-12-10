@@ -25,7 +25,7 @@ int main(int argc, char* argv[]){
     std::string convolve = argv[1];
     std::string input_filename = argv[2];
 
-    std::string output_filename = myImageReader->getPreExtension(input_filename) + "_dft_" + convolve +".bmp";
+    std::string output_filename = myImageReader->getPreExtension(input_filename) + "_" + convolve +".bmp";
 
     std::shared_ptr<AbstractMethod> myConv = factory[convolve]();
 

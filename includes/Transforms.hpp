@@ -1,8 +1,10 @@
 #ifndef TRANSFORMS
 #define TRANSFORMS
 
+
 #include <string>
 #include <Eigen/Dense>
+#include <cmath>
 
 template <typename T>
 class AbstractTransform

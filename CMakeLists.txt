@@ -50,6 +50,17 @@ target_link_libraries(imsonpro-convolve-image PRIVATE core)
 add_executable(imsonpro-bandfilter-image tools/bandfilter-image.cpp)
 target_link_libraries(imsonpro-bandfilter-image PRIVATE core)
 
+add_executable(imsonpro-hist-image tools/histogram-image.cpp)
+target_link_libraries(imsonpro-hist-image PRIVATE core)
+
+add_executable(imsonpro-dft-sound tools/dft-sound.cpp)
+target_link_libraries(imsonpro-dft-sound PRIVATE core)
+
+add_executable(imsonpro-bandfilter-sound tools/bandfilter-sound.cpp)
+target_link_libraries(imsonpro-bandfilter-sound PRIVATE core)
+
+add_executable(imsonpro-hist-sound tools/histogram-sound.cpp)
+target_link_libraries(imsonpro-hist-sound PRIVATE core)
 
 include(GoogleTest)
 gtest_discover_tests(unit_tests)

@@ -1,7 +1,9 @@
 #ifndef DATATYPES
 #define DATATYPES
 
+
 #include <cstdint>
+#include <cmath>
 
 // WAV Header Structure
 

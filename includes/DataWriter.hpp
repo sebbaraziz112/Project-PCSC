@@ -1,11 +1,13 @@
 #ifndef DATAWRITER
 #define DATAWRITER
 
+
 #include <iostream>
 #include <Eigen/Dense>
 #include <string>
 #include <cassert>
 #include <fstream>
+#include <cmath>
 #include "DataTypes.hpp"
 #include "DataReader.hpp"
 

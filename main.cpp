@@ -20,9 +20,11 @@ int main(int argc, char *argv[]){
         std::cout << "                      -Lap4 (4-neighbor Laplacian)" << std::endl;
         std::cout << "                      -Lap8 (8-neighbor Laplacian)" << std::endl;
         std::cout << "                      -LapGauss (Gaussian Laplacian)" << std::endl;
+        std::cout << "      - hist-image [filename]" << std::endl;
         std::cout << "      - bandfilter-image [filename] [prct bottom] [prct top]" << std::endl;
         std::cout << "      - dft-sound [fileame]" << std::endl;
         std::cout << "      - bandfilter-sound [filename] [prct bottom] [prct top]" << std::endl;
+        std::cout << "      - hist-sound [filename]" << std::endl;
         return 0;
     }
 

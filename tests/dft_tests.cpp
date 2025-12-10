@@ -427,4 +427,29 @@ TEST(BLUESTEIN_TEST, IDENTITY_2D_BIG){
     EXPECT_EQ(resultInvBluestein_2d[1], tests_2d[1]);
 }
 
+TEST(BLUESTEIN_TEST, IDENTITY_1D_BIGBIG){
+
+    std::shared_ptr<BlueSteinMethod> myBlueStein = std::make_shared<BlueSteinMethod>();
+    std::shared_ptr<InvBlueSteinMethod> myInvBlueStein = std::make_shared<InvBlueSteinMethod>();
+
+    std::vector<Eigen::Matrix<uint16_t, Eigen::Dynamic, Eigen::Dynamic>> tests_1d;
+
+    Eigen::Matrix<uint16_t, Eigen::Dynamic, Eigen::Dynamic> test1_1d;
+    test1_1d.resize(1, 100000);
+    randomInit<uint16_t>(test1_1d);
+    tests_1d.push_back(test1_1d);
+
+    Eigen::Matrix<uint16_t, Eigen::Dynamic, Eigen::Dynamic> test2_1d;
+    test2_1d.resize(1, 100000);
+    randomInit<uint16_t>(test2_1d);
+    tests_1d.push_back(test2_1d);
+
+    std::vector<Eigen::Matrix<std::complex<double>, Eigen::Dynamic, Eigen::Dynamic>> resultBluestein_1d = myBlueStein->computeMethod<uint16_t, std::complex<double>>(tests_1d);
+    std::vector<Eigen::Matrix<uint16_t, Eigen::Dynamic, Eigen::Dynamic>> resultInvBluestein_1d = myInvBlueStein->computeMethod<std::complex<double>, uint16_t>(resultBluestein_1d);
+
+
+    EXPECT_EQ(resultInvBluestein_1d[0], tests_1d[0]);
+    EXPECT_EQ(resultInvBluestein_1d[1], tests_1d[1]);
+}
+
 /////////////////////////////////////////
