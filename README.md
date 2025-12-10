@@ -58,7 +58,7 @@ For now, the project is not availabe on windows machines
 
 ---
 
-## Fonctionalities
+## Fonctionnalities
 
 Open the terminal and type
 
