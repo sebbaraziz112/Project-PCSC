@@ -1,3 +1,6 @@
+#ifndef UTILS_HPP
+#define UTILS_HPP
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -19,6 +22,23 @@ void randomInit(Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic>& matrix){
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<int> dist(0, 255);
+
+
+    for (int i = 0; i < nRows; i ++){
+        for (int j = 0; j < nCols; j ++){
+            matrix(i, j) = static_cast<T>(dist(gen));
+        }
+    }
+}
+
+template <typename T>
+void randomInit16(Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic>& matrix){
+    const int nRows = matrix.rows();
+    const int nCols = matrix.cols();
+
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<int> dist(0, 65535);
 
 
     for (int i = 0; i < nRows; i ++){
@@ -54,3 +74,4 @@ std::vector<Eigen::Matrix<O, Eigen::Dynamic, Eigen::Dynamic>> CastMatrix(std::ve
     return OVector;
 }
 
+#endif 

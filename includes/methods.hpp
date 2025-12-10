@@ -30,6 +30,14 @@ public:
     virtual Eigen::Matrix<std::complex<double>, Eigen::Dynamic, Eigen::Dynamic> computeMatrixMethod(Eigen::Matrix<std::complex<double>, Eigen::Dynamic, Eigen::Dynamic>& matrix) const = 0;
 
     int getNextPowerTwo(int M) const;
+    std::vector<int> getFactors(int N) const;
+    
+    template <typename T>
+    std::vector<Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic>> vectorToMatrix(std::vector<Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic>>& vector_matrices, std::vector<int>& factors) const;
+    
+    template <typename T>
+    std::vector<Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic>> matrixToVector(std::vector<Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic>>& matrices) const;
+
 
     std::string name_;
 
@@ -207,6 +215,42 @@ public:
         invbluestein1d_ = std::make_shared<InvBlueStein1DMethod>();
     }
     ~InvBlueSteinMethod(){};
+
+    virtual Eigen::Matrix<std::complex<double>, Eigen::Dynamic, Eigen::Dynamic> computeMatrixMethod(Eigen::Matrix<std::complex<double>, Eigen::Dynamic, Eigen::Dynamic>& matrix) const override;
+
+private:
+
+    std::shared_ptr<InvBlueStein1DMethod> invbluestein1d_;
+
+};
+
+class LineOnlyBlueSteinMethod: public AbstractMethod
+{
+
+public: 
+
+    LineOnlyBlueSteinMethod(): AbstractMethod("Line Only BlueStein Method"){
+        bluestein1d_ = std::make_shared<BlueStein1DMethod>();
+    }
+    ~LineOnlyBlueSteinMethod(){};
+
+    virtual Eigen::Matrix<std::complex<double>, Eigen::Dynamic, Eigen::Dynamic> computeMatrixMethod(Eigen::Matrix<std::complex<double>, Eigen::Dynamic, Eigen::Dynamic>& matrix) const override;
+
+private:
+
+    std::shared_ptr<BlueStein1DMethod> bluestein1d_;
+
+};
+
+class LineOnlyInvBlueSteinMethod: public AbstractMethod
+{
+
+public: 
+
+    LineOnlyInvBlueSteinMethod(): AbstractMethod("Line Only Inverse BlueStein Method"){
+        invbluestein1d_ = std::make_shared<InvBlueStein1DMethod>();
+    }
+    ~LineOnlyInvBlueSteinMethod(){};
 
     virtual Eigen::Matrix<std::complex<double>, Eigen::Dynamic, Eigen::Dynamic> computeMatrixMethod(Eigen::Matrix<std::complex<double>, Eigen::Dynamic, Eigen::Dynamic>& matrix) const override;
 
@@ -521,6 +565,50 @@ std::vector<Eigen::Matrix<O, Eigen::Dynamic, Eigen::Dynamic>> AbstractMethod::co
     }
     std::vector<Eigen::Matrix<O, Eigen::Dynamic, Eigen::Dynamic>> finalVector = this->OCast<O>(resultVector);
     return finalVector;
+}
+
+template <typename T>
+std::vector<Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic>> AbstractMethod::vectorToMatrix(std::vector<Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic>>& vector_matrices, std::vector<int>& factors) const{
+    const int nRows = vector_matrices[0].rows();
+    const int nCols = vector_matrices[0].cols();
+    const int nChann = vector_matrices.size();
+    assert(nRows == 1);
+    assert(factors[0] * factors[1] == nCols);
+    
+    std::vector<Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic>> matrix_matrices;
+    matrix_matrices.reserve(nChann);
+
+    for (int chann = 0; chann < nChann; chann ++){
+        Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic> mat(factors[0], factors[1]);
+        for (int i = 0; i < factors[0]; i ++){
+            for (int j = 0; j < factors[1]; j ++){
+                mat(i, j) = vector_matrices[chann](0, i * factors[1] + j);
+            }
+        }
+        matrix_matrices.push_back(mat);
+    }
+    return matrix_matrices;
+}
+    
+template <typename T>
+std::vector<Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic>> AbstractMethod::matrixToVector(std::vector<Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic>>& matrices) const{
+    const int nChann = matrices.size();
+    const int nRows = matrices[0].rows();
+    const int nCols = matrices[0].cols();
+    const int N = nRows * nCols;
+
+    std::vector<Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic>> vector_matrices;
+    vector_matrices.reserve(nChann);
+    for (int chann = 0; chann < nChann; chann ++){
+        Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic> vec(1, N);
+        for (int i = 0; i < nRows; i ++){
+            for (int j = 0; j < nCols; j ++){
+                vec(0, i * nCols + j) = matrices[chann](i, j);
+            }
+        }
+        vector_matrices.push_back(vec);
+    }
+    return vector_matrices;
 }
 
 //////////////////////////////////////

@@ -55,6 +55,9 @@ struct BMPHeader {
 };
 #pragma pack(pop)
 
+// Some functions
+
+void initBMPHeader(BMPHeader &header, uint32_t width, uint32_t height, uint16_t bitsPerPixel);
 // Some Points
 
 #pragma pack(push, 1)

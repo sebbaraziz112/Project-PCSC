@@ -28,6 +28,7 @@ src/FormatFactoring.cpp
 src/methods.cpp
 src/Transforms.cpp
 src/utils.cpp
+src/DataTypes.cpp
 )
 
 target_include_directories(core PUBLIC ${eigen_SOURCE_DIR})
@@ -36,7 +37,7 @@ target_include_directories(core PUBLIC ${eigen_SOURCE_DIR})
 add_executable(imsonpro main.cpp)
 target_link_libraries(imsonpro PRIVATE core)
 
-add_executable(unit_tests tests/data_rw_tests.cpp tests/dft_tests.cpp tests/shift_tests.cpp)
+add_executable(unit_tests tests/data_rw_tests.cpp tests/dft_tests.cpp tests/shift_tests.cpp tests/matrix_vector_tests.cpp)
 target_link_libraries(unit_tests PRIVATE core gtest_main)
 
 # tools

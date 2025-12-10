@@ -8,6 +8,22 @@ int AbstractMethod::getNextPowerTwo(int M) const{
     return std::pow(2, std::ceil(std::log2(M)));
 }
 
+std::vector<int> AbstractMethod::getFactors(int N) const{
+    std::vector<int> factors;
+    double root = std::sqrt(N);
+    for (int a = root; a >= 1; a --){
+        if (N % a == 0){
+            factors.push_back(a);
+            factors.push_back(N / a);
+            
+            return factors;
+        }
+    }
+    factors.push_back(N);
+    factors.push_back(1);
+    return factors;
+}
+
 ///////////////////////////////////////////////
 
 // Identity Method
@@ -332,6 +348,24 @@ Eigen::Matrix<std::complex<double>, Eigen::Dynamic, Eigen::Dynamic> BlueSteinMet
 
 }
 
+Eigen::Matrix<std::complex<double>, Eigen::Dynamic, Eigen::Dynamic> LineOnlyBlueSteinMethod::computeMatrixMethod(Eigen::Matrix<std::complex<double>, Eigen::Dynamic, Eigen::Dynamic>& matrix) const {
+    const int nRows = matrix.rows();
+    const int nCols = matrix.cols();
+
+    Eigen::Matrix<std::complex<double>, Eigen::Dynamic, Eigen::Dynamic> resultMatrix(nRows, nCols);
+    Eigen::Matrix<std::complex<double>, Eigen::Dynamic, Eigen::Dynamic> currentRow;
+    Eigen::Matrix<std::complex<double>, Eigen::Dynamic, Eigen::Dynamic> currentCol;
+
+    for (int row = 0; row < nRows; row ++){
+        currentRow = matrix.row(row).eval();
+        currentRow = bluestein1d_->computeMatrixMethod(currentRow);
+        resultMatrix.row(row) = currentRow;
+    }
+
+    return resultMatrix;
+
+}
+
 ///////////////////////////////////////////////
 
 // Inverse BlueStein Method
@@ -353,6 +387,24 @@ Eigen::Matrix<std::complex<double>, Eigen::Dynamic, Eigen::Dynamic> InvBlueStein
     for (int col = 0; col < nCols; col ++){
         currentCol = resultMatrix.col(col).eval().transpose();
         resultMatrix.col(col) = (invbluestein1d_->computeMatrixMethod(currentCol)).transpose();
+    }
+
+    return resultMatrix;
+
+}
+
+Eigen::Matrix<std::complex<double>, Eigen::Dynamic, Eigen::Dynamic> LineOnlyInvBlueSteinMethod::computeMatrixMethod(Eigen::Matrix<std::complex<double>, Eigen::Dynamic, Eigen::Dynamic>& matrix) const {
+    const int nRows = matrix.rows();
+    const int nCols = matrix.cols();
+
+    Eigen::Matrix<std::complex<double>, Eigen::Dynamic, Eigen::Dynamic> resultMatrix(nRows, nCols);
+    Eigen::Matrix<std::complex<double>, Eigen::Dynamic, Eigen::Dynamic> currentRow;
+    Eigen::Matrix<std::complex<double>, Eigen::Dynamic, Eigen::Dynamic> currentCol;
+
+    for (int row = 0; row < nRows; row ++){
+        currentRow = matrix.row(row).eval();
+        currentRow = invbluestein1d_->computeMatrixMethod(currentRow);
+        resultMatrix.row(row) = currentRow;
     }
 
     return resultMatrix;
