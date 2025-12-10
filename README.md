@@ -132,7 +132,11 @@ The result is the following:
 
 ![BETTERMAN_2.bmp](ressources/ImageFolder/BETTERMAN_2.bmp)
 
-![BETTERMAN_2_Blurr.png](ressources/ImageFolder/BETTERMAN_2_Blurr.bmp)
+![BETTERMAN_2_Blurr.nmp](ressources/ImageFolder/BETTERMAN_2_Blurr.bmp)
 
 
+
+Another example of usage is the contouring: 
+
+![BETTERMAN_2_SobelX.bmp](ressources/ImageFolder/BETTERMAN_2_Blurr.bmp)
 
