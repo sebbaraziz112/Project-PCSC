@@ -684,4 +684,22 @@ std::vector<Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic>> BandFiltering::shi
     return shiftedMatrices;
 }
 
+
+//////////////////////////////////////
+
+// Probability density of intensity values 
+
+class ProbDensity: public AbstractMethod
+{
+
+public:
+    
+    ProbDensity(): AbstractMethod("Probability Density Method"){};
+    ~ProbDensity(){};
+
+    Eigen::Matrix<std::complex<double>, Eigen::Dynamic, Eigen::Dynamic> computeMatrixMethod(Eigen::Matrix<std::complex<double>, Eigen::Dynamic, Eigen::Dynamic>& matrix) const override;
+
+};
+
+
 #endif

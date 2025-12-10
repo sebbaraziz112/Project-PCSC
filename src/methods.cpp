@@ -438,3 +438,26 @@ Eigen::Matrix<std::complex<double>, Eigen::Dynamic, Eigen::Dynamic> BandFilterin
 }
 
 //////////////////////////////////////////////
+
+
+Eigen::Matrix<std::complex<double>, Eigen::Dynamic, Eigen::Dynamic>
+ProbDensity::computeMatrixMethod(Eigen::Matrix<std::complex<double>, Eigen::Dynamic, Eigen::Dynamic>& matrix) const 
+{
+    std::vector<std::complex<double>> hist(256, std::complex<double>(0.0, 0.0));
+    int N = matrix.rows()*matrix.cols();
+    for (int i = 0; i < matrix.rows(); ++i) {
+        for (int j = 0; j < matrix.cols(); ++j) {
+            int val = static_cast<int>(std::round(std::real(matrix(i,j))));
+            val = std::clamp(val, 0, 255); 
+            hist[val] += 1.0;
+        }
+    }
+
+    Eigen::Matrix<std::complex<double>, Eigen::Dynamic, Eigen::Dynamic> out(2, 256);
+    for (int k = 0; k < 256; ++k) {
+        out(0, k) = k/N;      
+        out(1, k) = hist[k]; 
+    }
+
+    return out;
+}
