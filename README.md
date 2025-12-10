@@ -138,5 +138,5 @@ The result is the following:
 
 Another example of usage is the contouring: 
 
-![BETTERMAN_2_SobelX.bmp](ressources/ImageFolder/BETTERMAN_2_Blurr.bmp)
+![BETTERMAN_2_SobelX.bmp](ressources/ImageFolder/BETTERMAN_2_SobelX.bmp)
 
