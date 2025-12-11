@@ -141,6 +141,18 @@ Another example of usage is the contouring:
 ![BETTERMAN_2_SobelX.bmp](ressources/ImageFolder/BETTERMAN_2_SobelX.bmp)
 
 #### hist-image
+The hist-image command generated three histograms (one for Red, one for Blue and one for Green) of intensity of pixels. 
+
+Example of usage: 
+```bash
+cd Projet-PCSC/ressources/ImageFolder
+imsonpro hist-image Mauritius_beach.png
+```
+
+The files generated are: 
+- Mauritius_beach_histogram_B.png
+- Mauritius_beach_histogram_G.png
+- Mauritius_beach_histogram_R.png
 
 #### bandfilter-image
 The dft-image command uses the Bluestein algorithm (base on Radix-2 algorithm) to compute the DFT of an image, then filters the DFT and then computes the inverse DFT to get a new image. This can be useful for noise reduction. This command uses two arguments: 
@@ -167,3 +179,4 @@ The result is the following:
 
 ![BETTERMAN_2_bandfiltered_dft.bmp](ressources/ImageFolder/BETTERMAN_2_bandfiltered_dft.bmp)
 
+If you observe well the two first images, you will see that the details (noise) on the back of the person sitting on the rock have disappeared. 
