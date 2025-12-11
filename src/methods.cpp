@@ -470,7 +470,11 @@ ProbDensity::computeMatrixMethod(Eigen::Matrix<std::complex<double>, Eigen::Dyna
     Eigen::Matrix<std::complex<double>, Eigen::Dynamic, Eigen::Dynamic> out(2, histSize);
     for (int k = 0; k < histSize; ++k) {
         out(0, k) = static_cast<double>(k); 
+<<<<<<< HEAD
+        out(1, k) = hist[k]/static_cast<double>(N);;                  
+=======
         out(1, k) = hist[k];                  
+>>>>>>> 37350cc7b30f207615d5dee9b2ea9de58950f668
     }
 
     return out;

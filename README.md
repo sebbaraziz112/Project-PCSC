@@ -281,3 +281,12 @@ Voici la liste des **noms des 25 tests** :
 24. `MATRIX_VECTOR_TESTS.FACTORS`: verifies that getFactor(N) method gives a and b such that axb = N
 25. `MATRIX_VECTOR_TESTS.IDENTITY`: verifies that matrixToVector(vectorToMatrix(vector)) = vector
 
+## API Documentation with Doxygen
+
+This project uses Doxygen to generate API documentation from the header files.
+
+
+In order to open the HTML documentation, go to `/Project_Pcsc/Project-PCSC/build/html` then run:
+
+- **Linux**: `xdg-open index.html`
+- **MacOS**: `open index.html`
