@@ -190,7 +190,11 @@ This is the cropped DFT:
 
 ![BETTERMAN_2_bandfiltered_dft.bmp](ressources/ImageFolder/BETTERMAN_2_bandfiltered_dft.bmp)
 
-If you observe well the two first images, you will see that the details (noise) on the back of the person sitting on the rock have disappeared. 
+If you observe well the two first images and their differences, you will see that the details (noise) on the back and legs of the person sitting on the rock have disappeared. You can zoom to see that. If you want to have a more aggressive denoise, you can try with: 
+
+```bash
+imsonpro bandfilter-image BETTERMAN_2.bmp 30 70
+```
 
 
 ### Sound commands
