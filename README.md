@@ -241,3 +241,43 @@ for each channel i.
 An example of result is the following: 
 
 ![noisy1_histogram_channel_0.png](ressources/TrackFolder/noisy1_histogram_channel_0.png)
+
+
+## Tests
+
+To run the tests, run the following commands: 
+
+```bash
+cd build
+./unit_tests
+```
+
+There are 25 tests that tak in total less than 2 minutes to run: 
+Voici la liste des **noms des 25 tests** :
+
+1. `DATA_READ_WRITE.FULL_PIPELINE_SOUND`: Reads sound data and writes it back to file and verifies the files are the same
+2. `DATA_READ_WRITE.FULL_PIPELINE_IMAGE`: Reads image data and writes it back to file and verifies the files are the same
+3. `FFT1D_TEST.FORWARD_PASS_1D`: compares naive DFT with Radix-2 algo on 1D example
+4. `FFT1D_TEST.BACKWARD_PASS_1D`: compares naive inverse DFT with inverse Radix-2 algo on 1D example
+5. `FFT1D_TEST.IDENTITY_1D`: compares x and IFFT(FFT(x)) on a 1D example
+6. `BLUESTEIN1D_TEST.FORWARD_PASS_1D`: compares naive DFT with 1D bluestein method
+7. `BLUESTEIN1D_TEST.BACKWARD_PASS_1D`: compares naive inverse DFT with 1D inverse bluestein method
+8. `BLUESTEIN1D_TEST.IDENTITY_1D`: compares x with IBS1D(BS1D(x))
+9. `BLUESTEIN_TEST.FORWARD_PASS_1D`: compares naive DFT with bluestein method on 1D example
+10. `BLUESTEIN_TEST.FORWARD_PASS_2D`: compares naive DFT with bluestein method on 2D example
+11. `BLUESTEIN_TEST.BACKWARD_PASS_1D`: compares naive inverse DFT with inverse bluestein method on 1D example
+12. `BLUESTEIN_TEST.BACKWARD_PASS_2D`: compares naive inverse DFT with inverse bluestein method on 2D example
+13. `BLUESTEIN_TEST.IDENTITY_1D`: compares 1D x with IBS(BS(x))
+14. `BLUESTEIN_TEST.IDENTITY_2D`: compares 2D x with IBS(BS(x))
+15. `BLUESTEIN_TEST.IDENTITY_1D_BIG`: compares big 1D x with IBS(BS(x))
+16. `BLUESTEIN_TEST.IDENTITY_2D_BIG`: compares big 2D x with IBS(BS(x))
+17. `LINE_ONLY_BLUESTEIN_TEST.IDENTITY_1D`
+18. `LINE_ONLY_BLUESTEIN_TEST.IDENTITY_1D_BIG`
+19. `LINE_ONLY_BLUESTEIN_TEST.IDENTITY_1D_SOUND`
+20. `SHIFT_MATRIX.IDENTITY_EVEN_TEST_2D`: shifts to center and then back to original and verifies that it is equal to original matrix for even sized matrix
+21. `SHIFT_MATRIX.IDENTITY_ODD_TEST_2D`: shifts to center and then back to original and verifies that it is equal to original matrix for odd sized matrix
+22. `SHIFT_MATRIX.IDENTITY_EVEN_TEST_1D`: shifts to center and then back to original and verifies that it is equal to original matrix for even sized vector
+23. `SHIFT_MATRIX.IDENTITY_ODD_TEST_1D`: shifts to center and then back to original and verifies that it is equal to original matrix for odd sized matrix
+24. `MATRIX_VECTOR_TESTS.FACTORS`: verifies that getFactor(N) method gives a and b such that axb = N
+25. `MATRIX_VECTOR_TESTS.IDENTITY`: verifies that matrixToVector(vectorToMatrix(vector)) = vector
+
