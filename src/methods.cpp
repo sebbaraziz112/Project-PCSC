@@ -455,7 +455,7 @@ ProbDensity::computeMatrixMethod(Eigen::Matrix<std::complex<double>, Eigen::Dyna
 
     Eigen::Matrix<std::complex<double>, Eigen::Dynamic, Eigen::Dynamic> out(2, 256);
     for (int k = 0; k < 256; ++k) {
-        out(0, k) = k/N;      
+        out(0, k) = k;      
         out(1, k) = hist[k]; 
     }
 

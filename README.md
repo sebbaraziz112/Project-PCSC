@@ -111,7 +111,7 @@ The result is the following:
 The execution can take some time depending on your machine
 
 #### convolve-image
-The dft-image command uses different kind of kernels to perform convolutions on an image. In total, there are seven kernels available: 
+The convolve-image command uses different kind of kernels to perform convolutions on an image. In total, there are seven kernels available: 
 - SobelX: it highlights contouring in the X axis of the image
 - SobelY: it highlights contouring in the Y axis of the image
 - Blurr: it uses a 5x5 gaussian kernel to blurr the image
@@ -139,4 +139,31 @@ The result is the following:
 Another example of usage is the contouring: 
 
 ![BETTERMAN_2_SobelX.bmp](ressources/ImageFolder/BETTERMAN_2_SobelX.bmp)
+
+#### hist-image
+
+#### bandfilter-image
+The dft-image command uses the Bluestein algorithm (base on Radix-2 algorithm) to compute the DFT of an image, then filters the DFT and then computes the inverse DFT to get a new image. This can be useful for noise reduction. This command uses two arguments: 
+- prct bottom: 0-100
+- prct top: 0-100
+For both axis of the image, every complex value of the dft is set to 0 if the pixel is not located in [Width * prct bottom, Width * prct rop] x [Height * prct bottom, Height * prct top]
+
+Example of usage: 
+```bash
+cd Projet-PCSC/ressources/ImageFolder
+imsonpro bandfilter-image BETTERMAN_2.bmp 20 80
+```
+
+Several files are saved: 
+- BETTERMAN_2_dft.bmp
+- BETTERMAN_2_bandfiltered_dft.bmp
+- BETTERMAN_2_bandfiltered.bmp
+
+The result is the following: 
+
+![BETTERMAN_2.bmp](ressources/ImageFolder/BETTERMAN_2.bmp)
+
+![BETTERMAN_2_bandfiltered.bmp](ressources/ImageFolder/BETTERMAN_2_bandfiltered.bmp)
+
+![BETTERMAN_2_bandfiltered_dft.bmp](ressources/ImageFolder/BETTERMAN_2_bandfiltered_dft.bmp)
 

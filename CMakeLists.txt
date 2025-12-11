@@ -39,8 +39,15 @@ src/Visual.cpp
 
 target_include_directories(core PUBLIC ${CMAKE_SOURCE_DIR}/external/gnuplot-iostream)
 target_include_directories(core PUBLIC ${eigen_SOURCE_DIR})
+
+
 if(Boost_FOUND)
     target_include_directories(core PUBLIC ${Boost_INCLUDE_DIRS})
+
+    target_link_libraries(core
+        PUBLIC
+            Boost::iostreams
+    )
 endif()
 
 add_executable(imsonpro main.cpp)
