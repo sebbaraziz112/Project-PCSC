@@ -138,6 +138,11 @@ The result is the following:
 
 Another example of usage is the contouring: 
 
+```bash
+cd Projet-PCSC/ressources/ImageFolder
+imsonpro convolve-image SobelX BETTERMAN_2.bmp
+```
+
 ![BETTERMAN_2_SobelX.bmp](ressources/ImageFolder/BETTERMAN_2_SobelX.bmp)
 
 #### hist-image
@@ -173,10 +178,34 @@ Several files are saved:
 
 The result is the following: 
 
+This is the original image: 
+
 ![BETTERMAN_2.bmp](ressources/ImageFolder/BETTERMAN_2.bmp)
 
+This is the new one:
+
 ![BETTERMAN_2_bandfiltered.bmp](ressources/ImageFolder/BETTERMAN_2_bandfiltered.bmp)
+
+This is the cropped DFT:
 
 ![BETTERMAN_2_bandfiltered_dft.bmp](ressources/ImageFolder/BETTERMAN_2_bandfiltered_dft.bmp)
 
 If you observe well the two first images, you will see that the details (noise) on the back of the person sitting on the rock have disappeared. 
+
+
+### Sound commands
+
+This software supports .mp3 and .wav files
+
+#### dft-sound
+dft-sound uses the BlueStein method to compute the DFT. However, the bluestein method being sensitive to numerical instabilities for very long sounds, we decide to split the sound into several sub-sounds and compute the DFT for each. The result is thus a matrix where each line is the DFT of a subsound. 
+
+Example of usage: 
+```bash
+cd Projet-PCSC/ressources/TrackFolder
+imsonpro dft-sound noisy1.wav
+```
+
+The result is the following: 
+
+![noisy1_dft_image.bmp](ressources/TrackFolder/noisy1_dft_image.bmp)
