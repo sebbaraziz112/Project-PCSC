@@ -13,6 +13,21 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(Eigen)
 
 FetchContent_Declare(
+  gnuplot_iostream
+  GIT_REPOSITORY https://github.com/dstahlke/gnuplot-iostream.git
+  GIT_SHALLOW TRUE
+  GIT_PROGRESS TRUE
+)
+FetchContent_MakeAvailable(gnuplot_iostream)
+
+# -------------------- Boost --------------------
+# On Linux : STATIC ou SHARED selon ton installation
+set(Boost_USE_STATIC_LIBS OFF)
+set(Boost_USE_MULTITHREADED ON)
+find_package(Boost REQUIRED COMPONENTS iostreams system filesystem)
+
+
+FetchContent_Declare(
   googletest
   URL https://github.com/google/googletest/archive/refs/tags/v1.14.0.zip
 )
@@ -28,9 +43,19 @@ src/FormatFactoring.cpp
 src/methods.cpp
 src/Transforms.cpp
 src/utils.cpp
+src/Visual.cpp
 )
 
-target_include_directories(core PUBLIC ${eigen_SOURCE_DIR})
+target_include_directories(core PUBLIC ${eigen_SOURCE_DIR} ${gnuplot_iostream_SOURCE_DIR}
+${Boost_INCLUDE_DIRS}
+)
+
+# Linker Boost sur la librairie core
+target_link_libraries(core PRIVATE 
+    ${Boost_IOSTREAMS_LIBRARY} 
+    ${Boost_SYSTEM_LIBRARY} 
+    ${Boost_FILESYSTEM_LIBRARY}
+)
 
 
 add_executable(imsonpro main.cpp)
