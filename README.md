@@ -238,3 +238,6 @@ The files generated are:
 
 for each channel i.
 
+An example of result is the following: 
+
+![noisy1_histogram_channel_0.png](ressources/TrackFolder/noisy1_histogram_channel_0.png)
