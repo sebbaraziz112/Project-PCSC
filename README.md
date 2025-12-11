@@ -12,6 +12,7 @@ This repo implements a software for sound and image processing. It allows the us
 - [Installation](#installation)
 - [Fonctionnalities](#fonctionnalities)
 - [Tests](#tests)
+- [Doxygen](#api-documentation-with-doxygen)
 
 ---
 
