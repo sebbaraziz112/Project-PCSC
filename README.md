@@ -285,8 +285,7 @@ Voici la liste des **noms des 25 tests** :
 
 This project uses Doxygen to generate API documentation from the header files.
 
-
-In order to open the HTML documentation, go to `/Project_Pcsc/Project-PCSC/build/html` then run:
+In order to open the HTML documentation, go to `Project-PCSC/build/html` then run:
 
 - **Linux**: `xdg-open index.html`
 - **MacOS**: `open index.html`
