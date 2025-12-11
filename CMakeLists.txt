@@ -90,6 +90,30 @@ target_link_libraries(imsonpro-hist-sound PRIVATE core)
 include(GoogleTest)
 gtest_discover_tests(unit_tests)
 
+find_package(Doxygen REQUIRED)
 
+set(DOXYGEN_IN ${CMAKE_SOURCE_DIR}/docs/Doxyfile.in)
+set(DOXYGEN_OUT ${CMAKE_BINARY_DIR}/Doxyfile)
 
+configure_file(${DOXYGEN_IN} ${DOXYGEN_OUT} @ONLY)
 
+set(DOC_HTML_DIR ${CMAKE_BINARY_DIR}/html)
+
+add_custom_command(
+    OUTPUT ${DOC_HTML_DIR}/index.html
+    COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_OUT}
+    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+    COMMENT "Génération de la documentation Doxygen..."
+    VERBATIM
+)
+
+add_custom_target(doc ALL
+    DEPENDS ${DOC_HTML_DIR}/index.html
+    COMMENT "Documentation Doxygen prête → ${DOC_HTML_DIR}/index.html"
+)
+
+# Ouverture automatique pour WSL (Linux)
+add_custom_command(TARGET doc POST_BUILD
+    COMMAND wslview ${DOC_HTML_DIR}/index.html
+    COMMENT "Ouverture automatique de la documentation dans Windows (via WSL)..."
+)
