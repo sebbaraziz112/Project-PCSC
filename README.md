@@ -11,8 +11,7 @@ This repo implements a software for sound and image processing. It allows the us
 
 - [Installation](#installation)
 - [Fonctionnalities](#fonctionnalities)
-- [Examples](#examples)
-- [Contact](#contact)
+- [Tests](#tests)
 
 ---
 
@@ -160,7 +159,7 @@ The files generated are:
 - Mauritius_beach_histogram_R.png
 
 #### bandfilter-image
-The dft-image command uses the Bluestein algorithm (base on Radix-2 algorithm) to compute the DFT of an image, then filters the DFT and then computes the inverse DFT to get a new image. This can be useful for noise reduction. This command uses two arguments: 
+The bandfilter-image command uses the Bluestein algorithm (base on Radix-2 algorithm) to compute the DFT of an image, then filters the DFT and then computes the inverse DFT to get a new image. This can be useful for noise reduction. This command uses two arguments: 
 - prct bottom: 0-100
 - prct top: 0-100
 For both axis of the image, every complex value of the dft is set to 0 if the pixel is not located in [Width * prct bottom, Width * prct rop] x [Height * prct bottom, Height * prct top]
@@ -209,3 +208,36 @@ imsonpro dft-sound noisy1.wav
 The result is the following: 
 
 ![noisy1_dft_image.bmp](ressources/TrackFolder/noisy1_dft_image.bmp)
+
+#### bandfilter-sound 
+bandfilter-sound computes the dft od a sound as explained before, then applies a cropping on the dft and then computes the inverse dft. 
+
+Example of usage: 
+```bash
+cd Projet-PCSC/ressources/TrackFolder
+imsonpro bandfilter-sound ./noisy1.wav 20 80
+```
+
+The generated files are the following:
+- noisy1_bandfiltered.wav
+- noisy1_dft_banded_image.bmp
+- noisy1_dft_image.bmp
+
+#### hist-sound
+
+The hist-sound command generated a histogram of intensity for each channel.
+
+Example of usage: 
+```bash
+cd Projet-PCSC/ressources/TrackFolder
+imsonpro hist-sound noisy1.wav
+```
+
+The files generated are: 
+- noisy1_histogram_chann_i.png
+
+for each channel i.
+
+An example of result is the following: 
+
+![noisy1_histogram_channel_0.png](ressources/TrackFolder/noisy1_histogram_channel_0.png)

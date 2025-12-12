@@ -6,7 +6,7 @@
 int main(int argc, char* argv[]) {
     
     if (argc < 2) {
-        std::cout << "Usage: imsonpro histogram-sound <file>\n";
+        std::cout << "Usage: imsonpro hist-image <file>\n";
         return 0;
     }
 
