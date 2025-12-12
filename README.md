@@ -241,3 +241,13 @@ for each channel i.
 An example of result is the following: 
 
 ![noisy1_histogram_channel_0.png](ressources/TrackFolder/noisy1_histogram_channel_0.png)
+
+## API Documentation with Doxygen
+
+This project uses Doxygen to generate API documentation from the header files.
+
+
+In order to open the HTML documentation, go to `/Project_Pcsc/Project-PCSC/build/html` then run:
+
+- **Linux**: `xdg-open index.html`
+- **MacOS**: `open index.html`
