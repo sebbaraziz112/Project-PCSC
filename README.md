@@ -111,7 +111,7 @@ The result is the following:
 The execution can take some time depending on your machine
 
 #### convolve-image
-The dft-image command uses different kind of kernels to perform convolutions on an image. In total, there are seven kernels available: 
+The convolve-image command uses different kind of kernels to perform convolutions on an image. In total, there are seven kernels available: 
 - SobelX: it highlights contouring in the X axis of the image
 - SobelY: it highlights contouring in the Y axis of the image
 - Blurr: it uses a 5x5 gaussian kernel to blurr the image
@@ -138,5 +138,74 @@ The result is the following:
 
 Another example of usage is the contouring: 
 
+```bash
+cd Projet-PCSC/ressources/ImageFolder
+imsonpro convolve-image SobelX BETTERMAN_2.bmp
+```
+
 ![BETTERMAN_2_SobelX.bmp](ressources/ImageFolder/BETTERMAN_2_SobelX.bmp)
 
+#### hist-image
+The hist-image command generated three histograms (one for Red, one for Blue and one for Green) of intensity of pixels. 
+
+Example of usage: 
+```bash
+cd Projet-PCSC/ressources/ImageFolder
+imsonpro hist-image Mauritius_beach.png
+```
+
+The files generated are: 
+- Mauritius_beach_histogram_B.png
+- Mauritius_beach_histogram_G.png
+- Mauritius_beach_histogram_R.png
+
+#### bandfilter-image
+The dft-image command uses the Bluestein algorithm (base on Radix-2 algorithm) to compute the DFT of an image, then filters the DFT and then computes the inverse DFT to get a new image. This can be useful for noise reduction. This command uses two arguments: 
+- prct bottom: 0-100
+- prct top: 0-100
+For both axis of the image, every complex value of the dft is set to 0 if the pixel is not located in [Width * prct bottom, Width * prct rop] x [Height * prct bottom, Height * prct top]
+
+Example of usage: 
+```bash
+cd Projet-PCSC/ressources/ImageFolder
+imsonpro bandfilter-image BETTERMAN_2.bmp 20 80
+```
+
+Several files are saved: 
+- BETTERMAN_2_dft.bmp
+- BETTERMAN_2_bandfiltered_dft.bmp
+- BETTERMAN_2_bandfiltered.bmp
+
+The result is the following: 
+
+This is the original image: 
+
+![BETTERMAN_2.bmp](ressources/ImageFolder/BETTERMAN_2.bmp)
+
+This is the new one:
+
+![BETTERMAN_2_bandfiltered.bmp](ressources/ImageFolder/BETTERMAN_2_bandfiltered.bmp)
+
+This is the cropped DFT:
+
+![BETTERMAN_2_bandfiltered_dft.bmp](ressources/ImageFolder/BETTERMAN_2_bandfiltered_dft.bmp)
+
+If you observe well the two first images, you will see that the details (noise) on the back of the person sitting on the rock have disappeared. 
+
+
+### Sound commands
+
+This software supports .mp3 and .wav files
+
+#### dft-sound
+dft-sound uses the BlueStein method to compute the DFT. However, the bluestein method being sensitive to numerical instabilities for very long sounds, we decide to split the sound into several sub-sounds and compute the DFT for each. The result is thus a matrix where each line is the DFT of a subsound. 
+
+Example of usage: 
+```bash
+cd Projet-PCSC/ressources/TrackFolder
+imsonpro dft-sound noisy1.wav
+```
+
+The result is the following: 
+
+![noisy1_dft_image.bmp](ressources/TrackFolder/noisy1_dft_image.bmp)
