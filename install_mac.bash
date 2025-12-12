@@ -3,6 +3,6 @@
 
 brew install mpg123
 brew install imagemagick
-brew install graphviz
+brew install doxygen graphviz
 brew install gnuplot
 
