@@ -439,24 +439,38 @@ Eigen::Matrix<std::complex<double>, Eigen::Dynamic, Eigen::Dynamic> BandFilterin
 
 //////////////////////////////////////////////
 
+//Probability Density Method Computation 
 
 Eigen::Matrix<std::complex<double>, Eigen::Dynamic, Eigen::Dynamic>
 ProbDensity::computeMatrixMethod(Eigen::Matrix<std::complex<double>, Eigen::Dynamic, Eigen::Dynamic>& matrix) const 
 {
-    std::vector<std::complex<double>> hist(256, std::complex<double>(0.0, 0.0));
-    int N = matrix.rows()*matrix.cols();
+
+    int maxVal = 0;
     for (int i = 0; i < matrix.rows(); ++i) {
         for (int j = 0; j < matrix.cols(); ++j) {
             int val = static_cast<int>(std::round(std::real(matrix(i,j))));
-            val = std::clamp(val, 0, 255); 
+            val = std::max(val, 0); 
+            if (val > maxVal) maxVal = val;
+        }
+    }
+
+    int histSize = maxVal + 1;  
+
+    std::vector<std::complex<double>> hist(histSize, std::complex<double>(0.0, 0.0));
+    int N = matrix.rows() * matrix.cols();
+
+    for (int i = 0; i < matrix.rows(); ++i) {
+        for (int j = 0; j < matrix.cols(); ++j) {
+            int val = static_cast<int>(std::round(std::real(matrix(i,j))));
+            val = std::clamp(val, 0, maxVal); 
             hist[val] += 1.0;
         }
     }
 
-    Eigen::Matrix<std::complex<double>, Eigen::Dynamic, Eigen::Dynamic> out(2, 256);
-    for (int k = 0; k < 256; ++k) {
-        out(0, k) = k/N;      
-        out(1, k) = hist[k]; 
+    Eigen::Matrix<std::complex<double>, Eigen::Dynamic, Eigen::Dynamic> out(2, histSize);
+    for (int k = 0; k < histSize; ++k) {
+        out(0, k) = static_cast<double>(k); 
+        out(1, k) = hist[k]/static_cast<double>(N);;                  
     }
 
     return out;
